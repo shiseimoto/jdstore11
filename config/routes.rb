@@ -6,5 +6,9 @@ Rails.application.routes.draw do
   devise_for :users
   root 'products#index'
 
-  resources :products
+  resources :products do
+    memeber do
+      post :add_to_cart
+    end
+  end 
 end
