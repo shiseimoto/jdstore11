@@ -25,6 +25,8 @@ class Order < ApplicationRecord
 
   include AASM
 
+  aasm do
+
   state :order_placed, initial: true
   state :paid
   state :shipping
@@ -32,12 +34,12 @@ class Order < ApplicationRecord
   state :order_cancelled
   state :good_returned
 
-  event :make_payment, after_commit: :pay! do 
+  event :make_payment, after_commit: :pay! do
     transitions form: :order_placed, to: :paid
   end
 
   event :ship do
-    transistions form: :paid,  to: :shipping
+    transitions form: :paid,  to: :shipping
   end
 
   event :deliver do
@@ -52,7 +54,4 @@ class Order < ApplicationRecord
     transitions form: [:order_placed, :paid], to: :order_cancelled
   end
 end
-
-
-
 end
